@@ -64,7 +64,21 @@ Built for companies that need:
 
 ## 🖥️ Screenshots
 
-> Login → Dashboard → Expenses → Approvals → Rules
+<div align="center">
+  <img src="client/public/screenshots/dashboard.png" alt="ExpenseFlow Dashboard" width="800" />
+</div>
+
+<div align="center">
+  <img src="client/public/screenshots/expenses.png" alt="Expenses Management" width="800" />
+</div>
+
+<div align="center">
+  <img src="client/public/screenshots/rules.png" alt="Conditional Approval Rules" width="800" />
+</div>
+
+<div align="center">
+  <img src="client/public/screenshots/login.png" alt="Premium Login Screen" width="400" />
+</div>
 
 The UI features a custom dark design system with:
 - `#0f0f13` page background
