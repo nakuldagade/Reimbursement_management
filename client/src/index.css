@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0f0f13;
+  --color-surface: #17171e;
+  --color-surface2: #1f1f2a;
+  --color-surface3: #272733;
+  --color-border: #2e2e3d;
+  --color-accent: #7c6fff;
+  --color-accent2: #a78bfa;
+  --color-green: #22c55e;
+  --color-red: #ef4444;
+  --color-amber: #f59e0b;
+  --color-text: #f0effe;
+  --color-muted: #8884a8;
+  --color-subtle: #4a4a6a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Syne', sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 15, 19, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 111, 255, 0.3);
+  border-radius: 3px;
+}
+
+input, select, textarea {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-fadeUp { animation: fadeUp 0.4s ease; }
+.animate-fadeIn { animation: fadeIn 0.2s ease; }
+.animate-slideIn { animation: slideIn 0.3s ease; }
+
+/* ── Table styles ── */
+.ef-table-wrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.ef-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.ef-table th {
+  padding: 14px 22px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+.ef-table td {
+  padding: 18px 22px;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+.ef-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.ef-table tbody tr {
+  transition: background 0.15s;
+}
+.ef-table tbody tr:hover {
+  background: rgba(255,255,255, 0.012);
+}
+
+/* Stat cards */
+.ef-stat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 22px 24px;
+}

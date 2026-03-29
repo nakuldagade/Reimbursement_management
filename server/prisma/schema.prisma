@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id              String   @id @default(cuid())
+  name            String
+  country         String
+  defaultCurrency String   @default("INR")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  users          User[]
+  expenses       Expense[]
+  approvalChains ApprovalChain[]
+  approvalRules  ApprovalRule[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      String   @default("EMPLOYEE")
+  companyId String
+  managerId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company       Company        @relation(fields: [companyId], references: [id])
+  manager       User?          @relation("UserManager", fields: [managerId], references: [id])
+  subordinates  User[]         @relation("UserManager")
+  expenses      Expense[]
+  approvalLogs  ApprovalLog[]
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  approvalSteps ApprovalStep[]
+}
+
+model Expense {
+  id              String   @id @default(cuid())
+  amount          Float
+  currency        String   @default("USD")
+  convertedAmount Float?
+  baseCurrency    String?
+  category        String
+  description     String?
+  expenseDate     DateTime
+  receiptUrl      String?
+  status          String   @default("PENDING")
+  currentLevel    Int      @default(0)
+  userId          String
+  companyId       String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  company      Company       @relation(fields: [companyId], references: [id])
+  approvalLogs ApprovalLog[]
+  notifications Notification[]
+}
+
+model ApprovalChain {
+  id        String   @id @default(cuid())
+  name      String
+  companyId String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company Company        @relation(fields: [companyId], references: [id])
+  steps   ApprovalStep[]
+}
+
+model ApprovalStep {
+  id              String  @id @default(cuid())
+  level           Int
+  approverRole    String?
+  approverId      String?
+  approvalChainId String
+
+  approvalChain ApprovalChain @relation(fields: [approvalChainId], references: [id], onDelete: Cascade)
+  approver      User?         @relation(fields: [approverId], references: [id])
+}
+
+model ApprovalLog {
+  id        String   @id @default(cuid())
+  expenseId String
+  approverId String
+  action    String
+  comments  String?
+  level     Int
+  createdAt DateTime @default(now())
+
+  expense  Expense @relation(fields: [expenseId], references: [id])
+  approver User    @relation(fields: [approverId], references: [id])
+}
+
+model ApprovalRule {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  config    String
+  companyId String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  message   String
+  type      String
+  isRead    Boolean  @default(false)
+  expenseId String?
+  createdAt DateTime @default(now())
+
+  user    User     @relation(fields: [userId], references: [id])
+  expense Expense? @relation(fields: [expenseId], references: [id])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  action     String
+  entityType String
+  entityId   String
+  userId     String
+  details    String?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
