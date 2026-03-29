@@ -13,6 +13,10 @@ server/dev.db
 server/dev.db-journal
 server/*.db
 server/*.db-journal
+server/prisma/dev.db
+server/prisma/*.db
+**/*.db
+**/*.db-journal
 
 # Build outputs
 client/dist/
