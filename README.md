@@ -4,7 +4,6 @@
 
 ### A Premium Reimbursement Management System
 
-🌐 **Live Demo:** https://reimbursement-management-onkb.vercel.app/login
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
